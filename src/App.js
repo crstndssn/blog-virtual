@@ -3,7 +3,7 @@ import './style/main.css';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 // components
-import Navigation from './components/Navigation'
+import Navigation from './components/NavigationAdmin'
 
 
 // views
@@ -24,14 +24,14 @@ function App() {
 
         <Navigation />
 
-        <Route exact path="/marthaceciliacetina" component={Home}/>
-        <Route path="/" component={Home}/>
+        <Route path="/marthaceciliacetina" component={Home}/>
+        <Route exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/add" component={Add}/>
         <Route path="/posts" component={Posts}/>
         <Route path="/notifications" component={Notifications}/>
-        <Route path="/reset-password" component={ResetPassword}/>
+        <Route path="/reset" component={ResetPassword}/>
 
       </Router>
         

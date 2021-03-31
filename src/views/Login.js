@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Link } from 'react-router-dom'
+
 export default class Login extends Component {
     render() {
         return (
@@ -18,10 +20,9 @@ export default class Login extends Component {
                                 <button type="submit"
                                     class="w-full bg-black text-white my-2 p-4 rounded-2xl md:text-2xl xs:text-xl focus:outline-none">Log In</button>
                             </form>
-                            <a href="#/reset-password" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
+                            <Link to="/reset" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
                                 ¿Olvidaste tu contraseña?
-                            </a>
-
+                            </Link>
                         </div>
                     </div>
                 </div>
