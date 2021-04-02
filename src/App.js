@@ -3,7 +3,7 @@ import './style/main.css';
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 // components
-import Navigation from './components/NavigationAdmin'
+import Navigation from './components/Navigation'
 
 // views
 import Home from './views/Home'

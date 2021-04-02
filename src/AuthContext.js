@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { db } from "./firebase";
+import { app } from "./firebase";
 // import Cargando from '../components/Cargando'
 
 export const Auth = React.createContext();
@@ -10,7 +10,7 @@ export const AuthContext = ({ children }) => {
     const [showChild, setShowChild] = useState(false);
 
     useEffect(() => {
-        db.auth().onAuthStateChanged(function (user) {
+        app.auth().onAuthStateChanged(function (user) {
             setUsuario(user);
             setShowChild(true);
         })

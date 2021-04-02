@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { db } from '../firebase';
+import { app } from '../firebase';
 import { Auth } from '../AuthContext';
 
 import { Link } from 'react-router-dom'
@@ -10,10 +10,11 @@ const Login = ({ history }) => {
         e.preventDefault();
         const { email, password } = e.target.elements;
 
-        await db.auth()
+        await app.auth()
             .signInWithEmailAndPassword(email.value, password.value)
             .then(result => {
                 console.log(result);
+                history.push(`/`);
             })
             .catch(error => {
                 console.log(error)
@@ -27,10 +28,15 @@ const Login = ({ history }) => {
                     <div class="bg-white lg:w-1/3 md:w-2/3 xs:w-full">
                         <h3 class="font-medium text-6xl mt-2 mb-4">Log In</h3>
                         <form id="form-login" onSubmit={handleSubmit}>
-                            <input name="correo" type="email" id="login-email"
-                                class="bg-gray-200 text-xl p-4 my-2 w-full rounded-2xl focus:outline-none" placeholder="Email"
-                                autocomplete="off" />
-                            <input name="clave" type="password" id="login-password"
+                            <input 
+                                name="email" 
+                                type="email" 
+                                id="login-email"
+                                class="bg-gray-200 text-xl p-4 my-2 w-full rounded-2xl focus:outline-none" 
+                                placeholder="Email"
+                                autocomplete="off" 
+                            />
+                            <input name="password" type="password" id="login-password"
                                 class="bg-gray-200 text-xl p-4 my-2 w-full rounded-2xl focus:outline-none"
                                 placeholder="Contraseña" />
                             <button type="submit"
