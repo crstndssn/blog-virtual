@@ -35,19 +35,19 @@ const Navigation = () => {
                         <div className="flex md:justify-center xs:justify-between items-center xs:w-full md:w-auto">
                             <Link exact to="/" id="addPostBtn" className="only-admin-add">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/supersociedadeselkindussan.appspot.com/o/filesPosts%2F33wkaxK10KMLn7q6m3ZpjWZK57n1%2Fhome.svg?alt=media&token=421fa765-f95b-4f98-bbbe-8e4b37c7ca8e"
-                                    alt="add" className="w-7 md:mx-3 xs:mx-0" />
+                                    alt="add" className="w-7 md:mx-6 xs:mx-0" />
                             </Link>
                             <Link to="/posts" id="addPostBtn" className="only-admin-add">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/supersociedadeselkindussan.appspot.com/o/filesPosts%2F33wkaxK10KMLn7q6m3ZpjWZK57n1%2Fadd%20(1).svg?alt=media&token=021cc339-583c-415c-80e4-fdc64346282f"
-                                    alt="add" className="w-7 md:mx-3 xs:mx-0" />
+                                    alt="add" className="w-7 md:mx-6 xs:mx-0" />
                             </Link>
                             <Link to="/notifications" className="only-admin-notification">
                                 <img src="https://firebasestorage.googleapis.com/v0/b/supersociedadeselkindussan.appspot.com/o/filesPosts%2F33wkaxK10KMLn7q6m3ZpjWZK57n1%2Fbell.svg?alt=media&token=e1cddcd2-d983-45c9-b10a-fb3d4eef9e93"
-                                    alt="notification" className="w-7 md:mx-3 xs:mx-0" />
+                                    alt="notification" className="w-7 md:mx-6 xs:mx-0" />
                             </Link>
                             <p onClick={CerrarSesion} >
                                 <img src="https://firebasestorage.googleapis.com/v0/b/supersociedadeselkindussan.appspot.com/o/filesPosts%2F33wkaxK10KMLn7q6m3ZpjWZK57n1%2Flogout%20(1).svg?alt=media&token=c8ea205f-0e47-4727-a45c-0388bc40efbb"
-                                    alt="user" className="w-7 md:ml-3 xs:mx-0 cursor-pointer" />
+                                    alt="user" className="w-7 md:ml-6 xs:mx-0 cursor-pointer" />
                             </p>
                         </div>
 

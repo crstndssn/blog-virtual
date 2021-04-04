@@ -28,7 +28,7 @@ const Login = ({ history }) => {
                     <div class="bg-white lg:w-1/3 md:w-2/3 xs:w-full">
                         <h3 class="font-medium text-6xl mt-2 mb-4">Log In</h3>
                         <form id="form-login" onSubmit={handleSubmit}>
-                            <input 
+                            <input
                                 name="email" 
                                 type="email" 
                                 id="login-email"

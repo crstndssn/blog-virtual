@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { store } from '../firebase'
+import { store, storage } from '../firebase'
 
 
 const CreatePost = () => {
@@ -9,13 +9,14 @@ const CreatePost = () => {
 
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
+    
     const [linkFile, setLinkFile] = useState('')
     const [error, setError] = useState('')
     const [postuser, setPostUser] = useState([])
 
     useEffect(() => {
         const getPosts = async () => {
-            const { docs } = await store.collection('posts').get()
+            const { docs } = await store.collection('posts').orderBy('date', 'desc').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         }
@@ -74,6 +75,8 @@ const CreatePost = () => {
             const { title, date } = data.data()
             setTitle(title)
             setDate(date)
+            setLinkFile(linkFile)
+            console.log(linkFile)
             setIdUsuario(id)
             setModoEdicion(true)
             console.log(id)
@@ -102,7 +105,6 @@ const CreatePost = () => {
             linkFile: linkFile
         }
 
-
         try {
             await store.collection('posts').doc(idusuario).set(postUpdate)
             const { docs } = await store.collection('posts').get()
@@ -119,15 +121,45 @@ const CreatePost = () => {
 
     }
 
-    const uploadFile = () => {
-        console.log('helo')
 
+    const uploadFile = (e) => {
+
+
+        // setFile(e.target.files[0]);
+        
+
+        let file = e.target.files[0];
+        let bucketName = 'posts'
+        let refStorage = storage.ref(`${bucketName}/${file.name}`)
+        let upload = refStorage.put(file)
+
+        upload.on(
+            'state_changed',
+            snapshot => {
+                const porcentaje = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+                console.log(porcentaje)
+            },
+            err => {
+                console.log(err)
+            },
+            () => {
+                upload.snapshot.ref
+                    .getDownloadURL()
+                    .then(url => {
+                        setLinkFile(url)
+                        sessionStorage.setItem('imgNewPost', url)
+                    })
+                    .catch(err => {
+                        console.log(`Error obteniedo id ${err}`)
+                    })
+            }
+        )
 
     }
 
     return (
         <div className="flex justify-center items-start md:flex-row xs:flex-col gap-4">
-            <form onSubmit={modoedicion ? setUpdate : setPosts} className="md:w-1/2 xs:w-full border-2 border-gray-200 p-4 rounded-xl" id="form-post">
+            <form onSubmit={modoedicion ? setUpdate : setPosts} className="md:w-1/2 sm:w-full xs:w-full border-2 border-gray-200 p-4 rounded-xl" id="form-post">
                 <div>
                     <textarea
                         value={title}
@@ -135,11 +167,11 @@ const CreatePost = () => {
                         placeholder="Title"
                         autocomplete="off"
                         className="
-                    w-full bg-gray-200 
-                    py-3 px-6 rounded-xl 
-                    text-4xl font-medium 
-                    text-gray-800 
-                    focus:outline-none"
+                            w-full bg-gray-200 
+                            py-3 px-6 rounded-xl 
+                            text-4xl font-medium 
+                            text-gray-800
+                            focus:outline-none"
                     />
                 </div>
                 <div className="flex md:flex-row xs:flex-col">
@@ -160,12 +192,11 @@ const CreatePost = () => {
                             {/* <label className="cursor-pointer border border-black rounded-lg p-1 text-lg my-2" for="input-file">Subir archivo</label> */}
 
                             <input
-                                value={linkFile}
-                                className="file focus:outline-none" type="file" onChange={uploadFile} />
+                                onChange={(e)=>{uploadFile(e)}}
+                                name="upload-image"
+                                className="file focus:outline-none" 
+                                type="file" />
 
-                            {/* <div className="w-full h-3 bg-gray-300 rounded-full mx-5">
-                            <div className="upload-file h-3 bg-green-600 rounded-full"></div>
-                        </div> */}
 
                         </div>
 
