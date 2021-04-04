@@ -9,6 +9,7 @@
 /coverage
 
 /src/style/*
+/src/firebase.js
 
 # production
 /build
