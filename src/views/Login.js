@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { app } from '../firebase';
-import { Auth } from '../AuthContext';
-
+import React from 'react';
 import { Link } from 'react-router-dom'
+import { app } from '../firebase';
 
 const Login = ({ history }) => {
 

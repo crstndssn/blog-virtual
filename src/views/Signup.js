@@ -1,8 +1,12 @@
-import React, { Component, useState } from 'react'
-import { auth } from '../firebase'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { auth, store } from '../firebase'
 
 const Signup = () => {
 
+    const history = useHistory();
+
+    const [id, setId] = useState('');
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,7 +18,11 @@ const Signup = () => {
         console.log(name, email)
         auth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                alert('Usuario registrado')
+                console.log(result.user.uid)
+                setId(result.user.uid)
+                setEmail(result.user.email)
+                createUser(result.user.uid, result.user.email)
+                history.push('/')
             })
             .catch(e => {
                 if (e.code == 'auth/invalid-email') {
@@ -26,6 +34,24 @@ const Signup = () => {
             })
     }
 
+
+    const createUser = async (id, email) => {
+        
+        const user = {
+            id: id,
+            email: email,
+            name: name,
+            status: 'user'
+        } 
+
+        try {
+            await store.collection('users').doc(user.id).set(user)
+        } catch (e) {
+            console.log(e)
+        }
+
+    }
+
     return (
         <div id="modal-signup" className="modal">
             <div className="flex justify-center items-center min-h-75">
@@ -35,7 +61,6 @@ const Signup = () => {
                         <form id="form-signup" onSubmit={ResgistrarUsuarios
                         }>
                             <input
-
                                 onChange={(e) => { setName(e.target.value) }}
                                 type="text"
                                 id="signup-name"

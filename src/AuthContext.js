@@ -1,18 +1,21 @@
 
 import React, { useEffect, useState } from "react";
-import { app } from "./firebase";
+import { auth } from "./firebase";
 // import Cargando from '../components/Cargando'
 
 export const Auth = React.createContext();
 
 export const AuthContext = ({ children }) => {
+    
     const [usuario, setUsuario] = useState(null);
     const [showChild, setShowChild] = useState(false);
 
     useEffect(() => {
-        app.auth().onAuthStateChanged(function (user) {
+        auth.onAuthStateChanged((user) => {
             setUsuario(user);
             setShowChild(true);
+            console.log(user)
+            debugger;
         })
     }, [])
 

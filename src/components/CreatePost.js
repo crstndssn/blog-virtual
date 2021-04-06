@@ -1,30 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { store, storage } from '../firebase'
+import { auth, store, storage } from '../firebase'
+
+import Icon from '@mdi/react'
+import { mdiEyeOutline } from '@mdi/js'
 
 
 const CreatePost = () => {
 
     const [modoedicion, setModoEdicion] = useState(null)
     const [idusuario, setIdUsuario] = useState('')
+    const [usuarioEmail, setIdUsuarioEmail] = useState('')
+
+    const emailUser = useState('mace921@hotmail.com')
 
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
-    
+
     const [linkFile, setLinkFile] = useState('')
     const [error, setError] = useState('')
     const [postuser, setPostUser] = useState([])
 
+
     useEffect(() => {
+
         const getPosts = async () => {
             const { docs } = await store.collection('posts').orderBy('date', 'desc').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         }
         getPosts()
+
+
     }, [])
 
+    const idContainer = async () => {
+
+        const container = document.getElementById("form-post")
+        const btnDelete = document.getElementById("btnDelete")
+
+        await auth.onAuthStateChanged((user) => {
+            if (user) {
+                setIdUsuario(user.uid)
+                setIdUsuarioEmail(user.email)
+                if (usuarioEmail == emailUser[0]) {
+                    container.style.display = 'block'
+                    btnDelete.style.display = 'block'
+                } else {
+                    console.log(emailUser[0])
+                    container.style.display = 'none'
+                    btnDelete.style.display = 'none'
+                }
+                console.log(user.email)
+
+            }
+        })
+
+
+
+    }
+
+    idContainer()
+
+
     const setPosts = async (e) => {
+
         e.preventDefault()
+
         if (!title.trim()) {
             setError('El campo nombre está vacio')
         }
@@ -40,7 +81,6 @@ const CreatePost = () => {
             date: date,
             linkFile: linkFile
         }
-
 
         try {
             const data = await store.collection('posts').add(post)
@@ -58,7 +98,9 @@ const CreatePost = () => {
 
     }
 
+
     const BorrarUsuario = async (id) => {
+
         try {
             await store.collection('posts').doc(id).delete()
             const { docs } = await store.collection('posts').get()
@@ -67,7 +109,9 @@ const CreatePost = () => {
         } catch (e) {
             console.log(e)
         }
+
     }
+
 
     const PulsarActualizar = async (id) => {
         try {
@@ -84,6 +128,7 @@ const CreatePost = () => {
             console.log(e)
         }
     }
+
 
     const setUpdate = async (e) => {
 
@@ -126,7 +171,7 @@ const CreatePost = () => {
 
 
         // setFile(e.target.files[0]);
-        
+
 
         let file = e.target.files[0];
         let bucketName = 'posts'
@@ -158,8 +203,8 @@ const CreatePost = () => {
     }
 
     return (
-        <div className="flex justify-center items-start md:flex-row xs:flex-col gap-4">
-            <form onSubmit={modoedicion ? setUpdate : setPosts} className="md:w-1/2 sm:w-full xs:w-full border-2 border-gray-200 p-4 rounded-xl" id="form-post">
+        <div className="flex justify-center items-start lg:flex-row xs:flex-col gap-4">
+            <form id="form-submit" style={{ display: "none" }} onSubmit={modoedicion ? setUpdate : setPosts} className="lg:w-1/2 sm:w-full xs:w-full border-2 border-gray-200 p-4 rounded-xl" id="form-post">
                 <div>
                     <textarea
                         value={title}
@@ -189,12 +234,10 @@ const CreatePost = () => {
 
                         <div className="w-full flex flex-col p-4">
 
-                            {/* <label className="cursor-pointer border border-black rounded-lg p-1 text-lg my-2" for="input-file">Subir archivo</label> */}
-
                             <input
-                                onChange={(e)=>{uploadFile(e)}}
+                                onChange={(e) => { uploadFile(e) }}
                                 name="upload-image"
-                                className="file focus:outline-none" 
+                                className="file focus:outline-none"
                                 type="file" />
 
 
@@ -234,20 +277,26 @@ const CreatePost = () => {
                         )
                 }
             </form>
-            <div className="md:w-1/2 xs:w-full">
+            <div className="lg:w-1/2 xs:w-full">
                 {
                     postuser.length !== 0 ? (
                         postuser.map(item => (
                             <div className="w-full border-2 border-gray-200 rounded-xl p-4 mb-2 flex justify-between items-center">
                                 <div key={item.id} className="flex justify-center items-start w-full flex-col">
-                                    <p className="text-2xl font-medium">{item.title}</p>
-                                    <p className="text-base">{item.date}</p>
-                                    <p className="text-xl font-semibold"></p>
-                                    <div className="w-full flex justify-between mt-8 md:flex-row xs:flex-col">
-                                        <a download={item.title} href={item.linkFile} target="_blank" className="md:w-1/3 xs:w-full text-center my-2 border border-black py-1 px-2 rounded-full">ver documento</a>
-                                        <div className="md:w-1/3 xs:w-full flex justify-between items-center gap-1">
-                                            <button onClick={(id) => { PulsarActualizar(item.id) }} className="w-full text-white bg-black py-1 px-2 rounded-full focus:outline-none">edit</button>
-                                            <button onClick={(id) => { BorrarUsuario(item.id) }} className="w-full text-white bg-red-600 py-1 px-2 rounded-full focus:outline-none">delete</button>
+                                    <div className="w-full flex justify-between flex-col">
+                                        <p className="text-2xl font-medium">{item.title}</p>
+                                        <p className="text-base">{item.date}</p>
+                                    </div>
+                                    <div className="w-full flex justify-end md:flex-row xs:flex-col mt-4">
+                                        <a href={item.linkFile} target="_blank" className="flex justify-center items-center md:w-full xs:w-full text-center my-2 border border-black py-1 px-2 rounded-full mr-2">Ver Documento
+                                        <Icon
+                                                className="ml-1"
+                                                path={mdiEyeOutline}
+                                                size={1}
+                                                color="black"
+                                            /></a>
+                                        <div id="btn-delete" className="md:w-full xs:w-full flex justify-between items-center gap-1">
+                                            <button onClick={(id) => { BorrarUsuario(item.id) }} className="w-full text-white bg-red-600 py-1 px-2 rounded-full focus:outline-none">Delete</button>
                                         </div>
                                     </div>
                                 </div>
