@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 // views
 import martha from './views/martha/index.js'
 import vsp from './views/vsp/index.js'
+import info from './views/vsp/Info'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
       <Router>
 
+        <Route path="/" component={info}/>
         <Route path="/marthaceciliacetina" component={martha}/>
         <Route path="/vsp" component={vsp}/>
 
