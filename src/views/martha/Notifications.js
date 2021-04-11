@@ -1,5 +1,5 @@
 import React, { useEffect , useState} from 'react'
-import { store } from '../firebase'
+import { store } from '../../firebase'
 
 const Notifications = () => {
 
@@ -30,7 +30,7 @@ const Notifications = () => {
                     ))
                 ) : (
                     <span className="w-full my-4 text-gray-400">
-                        No hay posts
+                        No usuarios
                     </span>
                 )
             }

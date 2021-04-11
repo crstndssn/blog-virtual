@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
 const ResetPassword = (e) => {
 
@@ -13,7 +13,7 @@ const ResetPassword = (e) => {
             auth.sendPasswordResetEmail(emailReset)
             setEmailReset('')
             alert('Revisa tu correo')
-            history.push('/login')
+            history.push('/marthaceciliacetina/login')
         } catch(e) {
             console.log(e)
         }
