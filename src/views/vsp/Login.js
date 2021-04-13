@@ -54,7 +54,7 @@ const Login = () => {
                                 class="bg-gray-200 text-xl p-4 my-2 w-full rounded-2xl focus:outline-none"
                                 placeholder="Contraseña" />
                             <button type="submit"
-                                class="w-full bg-black text-white my-2 p-4 rounded-2xl md:text-2xl xs:text-xl focus:outline-none">Log In</button>
+                                className="w-full bg-black text-white my-2 p-4 rounded-2xl md:text-2xl xs:text-xl focus:outline-none">Log In</button>
                         </form>
                         <Link to="/vsp/reset" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
                             ¿Olvidaste tu contraseña?

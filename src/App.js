@@ -14,7 +14,7 @@ function App() {
 
       <Router>
 
-        <Route path="/" component={info}/>
+        <Route exact path="/" component={info}/>
         <Route path="/marthaceciliacetina" component={martha}/>
         <Route path="/vsp" component={vsp}/>
 
