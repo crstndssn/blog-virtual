@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom'
 import martha from './views/martha/index.js'
 import vsp from './views/vsp/index.js'
 import info from './views/vsp/Info'
+import espacios from './views/espacios-concretos/index.js'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" component={info}/>
         <Route path="/marthaceciliacetina" component={martha}/>
         <Route path="/vsp" component={vsp}/>
+        <Route path="/espacios-concretos" component={espacios}/>
 
 
       </Router>
