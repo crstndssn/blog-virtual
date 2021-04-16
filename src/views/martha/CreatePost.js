@@ -78,7 +78,8 @@ const CreatePost = () => {
 
         try {
             await store.collection('posts').add(post)
-            const { docs } = await store.collection('posts').get()
+            const { docs } = await store.collection('posts').orderBy('date', 'desc')
+                .where('autor', '==', 'mace921@hotmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
             console.log('post añadido')
@@ -97,7 +98,8 @@ const CreatePost = () => {
 
         try {
             await store.collection('posts').doc(id).delete()
-            const { docs } = await store.collection('posts').get()
+            const { docs } = await store.collection('posts').orderBy('date', 'desc')
+                .where('autor', '==', 'mace921@hotmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         } catch (e) {

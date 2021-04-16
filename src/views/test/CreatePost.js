@@ -10,16 +10,13 @@ const CreatePost = () => {
     const [modoedicion, setModoEdicion] = useState(null)
     const [idusuario, setIdUsuario] = useState('')
 
-
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [autor, setAutor] = useState('')
-    
 
     const [linkFile, setLinkFile] = useState('')
     const [error, setError] = useState('')
     const [postuser, setPostUser] = useState([])
-
 
     const [user, setUser] = useState(null)
     const [admin, setAdmin] = useState(null)
@@ -30,7 +27,7 @@ const CreatePost = () => {
         const getPosts = async () => {
             const { docs } = await store.collection('posts')
                 .orderBy('date', 'desc')
-                .where('autor', '==', 'gerencia@espaciosconcretos.com').get()
+                .where('autor', '==', 'blogvirtualco@gmail.com').get()
             
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
@@ -45,7 +42,7 @@ const CreatePost = () => {
 
         auth.onAuthStateChanged((user) => {
 
-            if (user.email === 'gerencia@espaciosconcretos.com') {
+            if (user.email === 'blogvirtualco@gmail.com') {
                 setAdmin(true)
                 setUser(false)
                 setAutor(user.email)
@@ -83,9 +80,8 @@ const CreatePost = () => {
 
         try {
             await store.collection('posts').add(post)
-            const { docs } = await store.collection('posts')
-                .orderBy('date', 'desc')
-                .where('autor', '==', 'gerencia@espaciosconcretos.com').get()
+            const { docs } = await store.collection('posts').orderBy('date', 'desc')
+            .where('autor', '==', 'blogvirtualco@gmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
             console.log('post añadido')
@@ -104,9 +100,8 @@ const CreatePost = () => {
 
         try {
             await store.collection('posts').doc(id).delete()
-            const { docs } = await store.collection('posts')
-                .orderBy('date', 'desc')
-                .where('autor', '==', 'gerencia@espaciosconcretos.com').get()
+            const { docs } = await store.collection('posts').orderBy('date', 'desc')
+            .where('autor', '==', 'blogvirtualco@gmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         } catch (e) {

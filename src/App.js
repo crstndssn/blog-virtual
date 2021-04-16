@@ -7,7 +7,7 @@ import martha from './views/martha/index.js'
 import vsp from './views/vsp/index.js'
 import info from './views/vsp/Info'
 import espacios from './views/espacios-concretos/index.js'
-
+import test from './views/test/index.js'
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
         <Route path="/marthaceciliacetina" component={martha}/>
         <Route path="/vsp" component={vsp}/>
         <Route path="/espacios-concretos" component={espacios}/>
+        <Route path="/test" component={test}/>
 
 
       </Router>
