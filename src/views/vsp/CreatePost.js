@@ -37,8 +37,6 @@ const CreatePost = () => {
         }
         getPosts()
 
-
-
     }, [])
 
     const idContainer = () => {
@@ -53,8 +51,8 @@ const CreatePost = () => {
                 setUser(true)
                 setAdmin(false)
             }
+            
         })
-
     }
 
     idContainer()
@@ -176,7 +174,7 @@ const CreatePost = () => {
 
 
         // setFile(e.target.files[0]);
-
+        
 
         let file = e.target.files[0];
         let bucketName = 'posts'
@@ -240,7 +238,7 @@ const CreatePost = () => {
                                 />
                                 <div className="w-full flex flex-col p-4">
                                     <input
-                                        onChange={(e) => { uploadFile(e) }}
+                                        onChange={(e) => { uploadFile(e.target.value) }}
                                         name="upload-image"
                                         className="file focus:outline-none"
                                         type="file" />

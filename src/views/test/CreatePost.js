@@ -167,9 +167,7 @@ const CreatePost = () => {
 
     const uploadFile = (e) => {
 
-
         // setFile(e.target.files[0]);
-
 
         let file = e.target.files[0];
         let bucketName = 'posts'
@@ -267,7 +265,7 @@ const CreatePost = () => {
                                 )
                         }
                     </form>
-
+                    
                 ) : (
                     <span></span>
                 )
