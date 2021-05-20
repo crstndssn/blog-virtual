@@ -13,6 +13,14 @@ import redlogistico from './views/redlogistico/index.js'
 
 import Admin from './views/Admin.js'
 
+// BETA
+import HomeBeta from './views/Home'
+import UserBeta from './views/Home'
+import Navigation from './components/Navigation'
+import Login from './components/auth/Login'
+import Reset from './components/auth/Reset'
+import Signup from './components/auth/Signup'
+
 
 import test from './views/test/index.js'
 
@@ -22,19 +30,24 @@ function App() {
 
       <Router>
 
-        <Route exact path="/" component={info} />
+        {/* <Route exact path="/" component={info} />
         <Route path="/marthaceciliacetina" component={martha} />
         <Route path="/vsp" component={vsp} />
         <Route path="/espacios-concretos" component={espacios} />
         <Route path="/blindcorpdecolombia" component={blindcorp} />
         <Route path="/grupologisticored" component={logisticored} />
         <Route path="/redgrupologistico" component={redlogistico} />
+        <Route path="/test" component={test}/> */}
 
+        {/* beta */}
 
-        <Route path="/test" component={test}/>
-
-        <Route path="/admin" component={Admin}/>
-
+        <Navigation/>
+        <Route path="/beta/home" component={HomeBeta}/>
+        <Route path="/beta/user" component={UserBeta}/>
+        <Route path="/beta/admin" component={Admin}/>
+        <Route path="/beta/login" component={Login}/>
+        <Route path="/beta/signup" component={Signup}/>
+        <Route path="/beta/reset" component={Reset}/>
 
       </Router>
         

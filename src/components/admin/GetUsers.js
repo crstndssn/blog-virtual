@@ -23,10 +23,10 @@ const GetUsers = () => {
                     <Menu as="div" className="relative inline-block text-left">
                         {({ open }) => (
                             <>
-                                <div className="mr-7">
-                                    <Menu.Button className="inline-flex justify-center w-full rounded-full shadow px-3 py-2 bg-black font-medium text-white hover:bg-gray-900 focus:outline-none">
+                                <div className="mr-10">
+                                    <Menu.Button className="flex items-center justify-center w-full rounded-full shadow px-3 py-2 bg-black font-medium text-white hover:bg-gray-900 focus:outline-none">
                                         Name
-                                        <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                                        <ChevronDownIcon className="w-5" aria-hidden="true" />
                                     </Menu.Button>
                                 </div>
 

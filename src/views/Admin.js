@@ -6,10 +6,7 @@ import GetUsers from '../components/admin/GetUsers'
 
 const Admin = () => {
     return (
-        <div className="container mx-auto mt-7">
-            <div className="my-2">
-                <h1 className="text-3xl font-semibold">Dashboard</h1>
-            </div>
+        <div className="container mx-auto">
             <AddUser/>
             <GetUsers/>
         </div>
