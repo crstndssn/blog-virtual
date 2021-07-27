@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { app } from '../../firebase';
 
 const Login = () => {
 
-    const history = useHistory();
+    const {id} = useParams()
 
+    const history = useHistory();
 
     const [msgerror, setMsgError] = useState(null)
 
@@ -17,7 +18,7 @@ const Login = () => {
             .signInWithEmailAndPassword(email.value, password.value)
             .then(result => {
                 console.log(result);
-                history.push(`/blindcorpdecolombia`);
+                history.push(`/${id}`);
             })
             .catch(error => {
 
@@ -56,8 +57,11 @@ const Login = () => {
                             <button type="submit"
                                 className="w-full bg-black text-white my-2 p-4 rounded-2xl md:text-2xl xs:text-xl focus:outline-none">Log In</button>
                         </form>
-                        <Link to="/blindcorpdecolombia/reset" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
+                        <Link to={`/${id}/reset`} id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
                             ¿Olvidaste tu contraseña?
+                        </Link>
+                        <Link to={`/${id}/signup`} id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
+                            ¿No tienes una cuenta?
                         </Link>
                     </div>
                     {

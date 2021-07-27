@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { store } from '../../firebase'
 
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
@@ -10,6 +11,17 @@ function classNames(...classes) {
 
 
 const GetUsers = () => {
+
+
+
+    useEffect(() => {
+        const getPost = async () => {
+            const { docs } = await store.collection('users').where('admin', '==', true).get()
+            const newArray = docs.map(item => ({ id: item.id, ...item.data() }))
+
+        }
+    })
+
     return (
         <div>
             <div className="w-full border shadow flex justify-between items-center py-3 rounded-xl mt-5">

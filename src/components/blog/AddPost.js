@@ -2,13 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { auth, store, storage } from '../../firebase'
 
+import { useParams } from 'react-router-dom'
+
 import Icon from '@mdi/react'
 import { mdiEyeOutline } from '@mdi/js'
-
-
-
+import Navigation from '../Navigation';
 
 const AddPost = () => {
+
+    const { id } = useParams();
+
+    const { superUser } = useParams()
 
     const [modoedicion, setModoEdicion] = useState(null)
     const [idusuario, setIdUsuario] = useState('')
@@ -30,16 +34,16 @@ const AddPost = () => {
         const getPosts = async () => {
             const { docs } = await store.collection('posts')
                 .orderBy('date', 'desc')
-                .where('autor', '==', 'dussan29@gmail.com').get()
-            
+                .where('autor', '==', id).get()
+
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
+            console.log(id)
         }
         getPosts()
 
-
-
     }, [])
+
 
     const idContainer = () => {
 
@@ -84,7 +88,7 @@ const AddPost = () => {
         try {
             await store.collection('posts').add(post)
             const { docs } = await store.collection('posts').orderBy('date', 'desc')
-            .where('autor', '==', 'dussan29@gmail.com').get()
+                .where('autor', '==', 'dussan29@gmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
             console.log('post añadido')
@@ -104,7 +108,7 @@ const AddPost = () => {
         try {
             await store.collection('posts').doc(id).delete()
             const { docs } = await store.collection('posts').orderBy('date', 'desc')
-            .where('autor', '==', 'dussan29@gmail.com').get()
+                .where('autor', '==', 'dussan29@gmail.com').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         } catch (e) {
@@ -202,124 +206,131 @@ const AddPost = () => {
     }
 
     return (
-        <div className="container mx-auto grid grid-cols-3 gap-4">
-            {
-                admin === true ? (
-                    <form id="form-submit" onSubmit={modoedicion ? setUpdate : setPosts} className="lg:w-full sm:w-full xs:w-full border shadow border-gray-200 p-4 rounded-xl" id="form-post">
-                        <div>
-                            <textarea
-                                value={title}
-                                onChange={(e) => { setTitle(e.target.value) }}
-                                placeholder="Title"
-                                autocomplete="off"
-                                className="
-                            w-full bg-gray-200 
-                            py-3 px-6 rounded-xl 
-                            text-4xl font-medium 
-                            text-gray-800
-                            focus:outline-none"
-                            />
-                        </div>
-                        <div className="flex md:flex-row xs:flex-col">
-                            <div className="md:w-full xs:w-full progress-panel flex items-center flex-col">
+
+        <>
+            <div className="container mx-auto grid md:grid-cols-3 gap-4">
+                {
+                    admin === true ? (
+                        <form id="form-submit" onSubmit={modoedicion ? setUpdate : setPosts} className="md:row-span-2 flex justify-around items-center flex-col lg:w-full sm:w-full xs:w-full border p-4 rounded-xl md:mb-0 xs:mb-4" id="form-post">
+                            <div className="w-full mr-3">
+                                <textarea
+                                    value={title}
+                                    onChange={(e) => { setTitle(e.target.value) }}
+                                    placeholder="Descripción"
+                                    autocomplete="off"
+                                    className="
+                        w-full h-full border focus-within:shadow 
+                        py-2 px-3 rounded-xl 
+                        md:text-2xl xs:text-xl font-medium 
+                        text-gray-800
+                        focus:outline-none"
+                                />
+                            </div>
+                            <div className="flex w-full flex-col justify-between">
                                 <input
                                     value={date}
                                     onChange={(e) => { setDate(e.target.value) }}
                                     type="date"
                                     className="
-                            w-full p-3 
-                            bg-gray-200 
-                            rounded-xl my-2 
-                            focus:outline-none"
+                            w-1/2 py-1 px-2 
+                            border
+                            hover:shadow 
+                            rounded-xl mb-2
+                            cursor-pointer 
+                            focus:outline-none my-4"
                                 />
-                                <div className="w-full flex flex-col p-4">
+                                <div className="w-1/2 flex flex-col p-2">
                                     <input
                                         onChange={(e) => { uploadFile(e) }}
                                         name="upload-image"
                                         className="file focus:outline-none"
                                         type="file" />
                                 </div>
-                                {
-                                    modoedicion ?
-                                        (
-                                            <button action="submit"
-                                                className="md:w-2/3 xs:w-full bg-black text-white my-4 p-2 rounded-xl md:text-2xl xs:text-xl focus:outline-none">Actualizar</button>
-                                        )
-                                        :
-                                        (
-                                            <button action="submit"
-                                                className="md:w-2/3 xs:w-full bg-black text-white my-4 p-2 rounded-xl md:text-2xl xs:text-xl focus:outline-none">Publicar</button>
-                                        )
-                                }
                             </div>
-                        </div>
-                        <div className="flex justify-center items-center w-full">
-                        </div>
-                        {
-                            error ?
-                                (
-                                    <div>
-                                        <p className="bg-red-100 text-red-700 p-2 mt-4 rounded">{error}</p>
-                                    </div>
-                                )
-                                :
-                                (
-                                    <span></span>
-                                )
-                        }
-                    </form>
-                    
-                ) : (
-                    <span></span>
-                )
-            }
-            <div className="w-1/2 flex justify-center items-start lg:flex-row xs:flex-col gap-4">
-                <div className="lg:w-full xs:w-full">
-                    {
-                        postuser.length !== 0 ? (
-                            postuser.map(item => (
-                                <div className="w-full border-2 border-gray-200 rounded-xl p-4 mb-2 flex justify-between items-center">
-                                    <div key={item.id} className="flex justify-center items-start w-full flex-col">
-                                        <div className="w-full flex justify-between flex-col">
-                                            <p className="text-2xl font-medium">{item.title}</p>
-                                            <p className="text-base mt-2">{item.date}</p>
+
+                            {
+                                modoedicion ?
+                                    (
+                                        <button action="submit"
+                                            className="md:w-2/3 xs:w-full bg-black text-white my-4 px-1 rounded-xl md:text-2xl xs:text-xl focus:outline-none">Actualizar</button>
+                                    )
+                                    :
+                                    (
+                                        <button action="submit"
+                                            className="w-full bg-black text-white p-1 rounded-full md:text-xl xs:text-lg focus:outline-none">Publicar</button>
+                                    )
+                            }
+
+                            {
+                                error ?
+                                    (
+                                        <div>
+                                            <p className="bg-red-100 text-red-700 p-2 mt-4 rounded">{error}</p>
                                         </div>
-                                        <div className="w-full flex md:justify-center xs:justify-center">
-                                            <div className="md:w-2/3 xs:w-full flex justify-end md:flex-row xs:flex-col mt-4">
-                                                <a href={item.linkFile} target="_blank" rel="noreferrer" className="flex justify-center items-center md:w-full xs:w-full text-center my-2 border border-black py-1 px-2 rounded-full mr-2">Ver Documento
+                                    )
+                                    :
+                                    (
+                                        <span></span>
+                                    )
+                            }
+
+                        </form>
+
+                    ) : (
+                        <span></span>
+                    )
+                }
+
+                {
+                    postuser.length !== 0 ? (
+                        postuser.map(item => (
+                            <div className="w-full border rounded-xl p-4 mb-2 flex justify-between items-center">
+                                <div key={item.id} className="flex justify-between items-start w-full h-full flex-col">
+                                    <div className="w-full flex justify-between flex-col">
+                                        <p className="text-2xl font-medium">{item.title}</p>
+                                        <p className="text-base mt-2">{item.date}</p>
+                                    </div>
+                                    <div className="w-full flex md:justify-center xs:justify-center">
+                                        <div className="md:w-full xs:w-full flex justify-end md:flex-row xs:flex-col mt-4">
+                                            <a href={item.linkFile} target="_blank" rel="noreferrer" className="flex justify-center items-center md:w-full xs:w-full text-center my-2 border border-black py-1 px-2 rounded-full mr-2">Ver Documento
                                                 <Icon
-                                                        className="ml-1"
-                                                        path={mdiEyeOutline}
-                                                        size={1}
-                                                        color="black"
-                                                    /></a>
-                                                {
-                                                    admin === true ? (
-                                                        <div id="btn-delete" className="md:w-full xs:w-full flex justify-between items-center gap-1">
-                                                            <button onClick={(id) => { BorrarUsuario(item.id) }} className="w-full text-white bg-red-600 py-1 px-2 rounded-full focus:outline-none">Delete</button>
-                                                        </div>
+                                                    className="ml-1"
+                                                    path={mdiEyeOutline}
+                                                    size={1}
+                                                    color="black"
+                                                /></a>
+                                            {
+                                                admin === true ? (
+                                                    <div id="btn-delete" className="md:w-full xs:w-full flex justify-between items-center gap-1">
+                                                        <button onClick={(id) => { BorrarUsuario(item.id) }} className="w-full text-white bg-red-600 py-1 px-2 rounded-full focus:outline-none">Delete</button>
+                                                    </div>
 
-                                                    ) : (
-                                                        <span></span>
-
-                                                    )
-                                                }
-                                            </div>
+                                                ) : (
+                                                    <span></span>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            ))
-                        ) : (
-                            <span className="w-full my-4 text-gray-400">
-                                No hay posts
-                            </span>
-                        )
-                    }
-                </div>
-            </div>
+                        ))
+                    ) : (
+                        <span className="w-full my-4 text-gray-400">
+                            No hay posts
+                        </span>
+                    )
+                }
 
-        </div>
+
+
+            </div >
+        </>
+
+
+
+
+
     )
 }
 

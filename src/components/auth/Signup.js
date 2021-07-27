@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { auth, store } from '../../firebase'
 
 const Signup = () => {
+
+    const {idUser} = useParams()
 
     const history = useHistory();
 
@@ -23,7 +25,7 @@ const Signup = () => {
                 console.log(id)
                 setEmail(result.user.email)
                 createUser(result.user.uid, result.user.email)
-                history.push('/')
+                history.push(`/${idUser}`)
             })
             .catch(e => {
                 if (e.code === 'auth/invalid-email') {

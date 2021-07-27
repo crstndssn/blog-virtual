@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Posts = () => {
+const error = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Posts = () => {
     )
 }
 
-export default Posts
+export default error
