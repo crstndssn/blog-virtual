@@ -2,7 +2,7 @@ import React from 'react'
 
 const AddUser = () => {
     return (
-        <div className="border rounded-lg shadow py-4 px-10 mt-5">
+        <div className="border rounded-lg shadow py-4 px-10">
             
             <div className="w-full flex justify-center items-center">
                 <div className="w-1/3 mr-2">

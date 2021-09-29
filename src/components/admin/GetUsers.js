@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { store } from '../../firebase'
 
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
@@ -10,6 +11,17 @@ function classNames(...classes) {
 
 
 const GetUsers = () => {
+
+
+
+    useEffect(() => {
+        const getPost = async () => {
+            const { docs } = await store.collection('users').where('admin', '==', true).get()
+            const newArray = docs.map(item => ({ id: item.id, ...item.data() }))
+
+        }
+    })
+
     return (
         <div>
             <div className="w-full border shadow flex justify-between items-center py-3 rounded-xl mt-5">
@@ -23,10 +35,10 @@ const GetUsers = () => {
                     <Menu as="div" className="relative inline-block text-left">
                         {({ open }) => (
                             <>
-                                <div className="mr-7">
-                                    <Menu.Button className="inline-flex justify-center w-full rounded-full shadow px-3 py-2 bg-black font-medium text-white hover:bg-gray-900 focus:outline-none">
+                                <div className="mr-10">
+                                    <Menu.Button className="flex items-center justify-center w-full rounded-full shadow px-3 py-2 bg-black font-medium text-white hover:bg-gray-900 focus:outline-none">
                                         Name
-                                        <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+                                        <ChevronDownIcon className="w-5" aria-hidden="true" />
                                     </Menu.Button>
                                 </div>
 

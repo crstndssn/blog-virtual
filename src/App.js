@@ -14,10 +14,12 @@ import fernandoRodriguez from './views/fernando/index.js'
 
 import Admin from './views/Admin.js'
 
-
 import test from './views/test/index.js'
+import React, { useEffect, useState } from 'react';
+import { store } from './firebase';
 
-function App() {
+const App = () => {
+
   return (
     <div className="mb-10">
 
@@ -39,7 +41,7 @@ function App() {
 
 
       </Router>
-        
+
     </div>
   );
 }

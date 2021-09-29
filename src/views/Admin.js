@@ -1,18 +1,20 @@
 import React from 'react'
 
+import Navigation from '../components/Navigation'
 
 import AddUser from '../components/admin/AddUser'
 import GetUsers from '../components/admin/GetUsers'
 
 const Admin = () => {
     return (
-        <div className="container mx-auto mt-7">
-            <div className="my-2">
-                <h1 className="text-3xl font-semibold">Dashboard</h1>
+        <>
+            <Navigation/>
+            <div className="container mx-auto">
+                <AddUser />
+                <GetUsers />
             </div>
-            <AddUser/>
-            <GetUsers/>
-        </div>
+        </>
+
     )
 }
 
