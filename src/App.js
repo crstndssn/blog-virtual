@@ -34,7 +34,6 @@ const App = () => {
         <Route path="/redgrupologistico" component={redlogistico} />
         <Route path="/fernando-rodriguez" component={fernandoRodriguez} />
 
-
         <Route path="/test" component={test}/>
 
         <Route path="/admin" component={Admin}/>
