@@ -278,7 +278,7 @@ const CreatePost = () => {
                     <span></span>
                 )
             }
-            <div className="w-1/2 flex justify-center items-start lg:flex-row xs:flex-col gap-4">
+            <div className="lg:w-1/2 md:w-full flex justify-center items-start lg:flex-row xs:flex-col gap-4">
                 <div className="lg:w-full xs:w-full">
                     {
                         postuser.length !== 0 ? (
