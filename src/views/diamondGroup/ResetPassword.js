@@ -13,7 +13,7 @@ const ResetPassword = (e) => {
             auth.sendPasswordResetEmail(emailReset)
             setEmailReset('')
             alert('Revisa tu correo')
-            history.push('/vsp/login')
+            history.push('/diamondgroupamd/login')
         } catch(e) {
             console.log(e)
         }

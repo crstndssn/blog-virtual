@@ -18,9 +18,9 @@ const Index = () => {
     //     auth.onAuthStateChanged((user) => {
 
     //         if (user) {
-    //             history.push('/vsp/info');
+    //             history.push('/diamondgroupamd/info');
     //         } else {
-    //             history.push('/vsp');
+    //             history.push('/diamondgroupamd');
     //         }
     //     })
 
@@ -33,14 +33,14 @@ const Index = () => {
 
                     <Navigation />
 
-                    <Route exact path="/vsp" component={Info} />
+                    <Route exact path="/diamondgroupamd" component={Info} />
 
-                    <Route path="/vsp/info" component={Info} />
-                    <Route path="/vsp/login" component={Login} />
-                    <Route path="/vsp/signup" component={Signup} />
-                    <Route path="/vsp/posts" component={Posts} />
-                    <Route path="/vsp/notifications" component={Notifications} />
-                    <Route path="/vsp/reset" component={ResetPassword} />
+                    <Route path="/diamondgroupamd/info" component={Info} />
+                    <Route path="/diamondgroupamd/login" component={Login} />
+                    <Route path="/diamondgroupamd/signup" component={Signup} />
+                    <Route path="/diamondgroupamd/posts" component={Posts} />
+                    <Route path="/diamondgroupamd/notifications" component={Notifications} />
+                    <Route path="/diamondgroupamd/reset" component={ResetPassword} />
                     
                 </Router>
             </div>

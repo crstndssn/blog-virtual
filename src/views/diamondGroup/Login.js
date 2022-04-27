@@ -17,7 +17,7 @@ const Login = () => {
             .signInWithEmailAndPassword(email.value, password.value)
             .then(result => {
                 console.log(result);
-                history.push(`/vsp`);
+                history.push(`/diamondgroupamd`);
             })
             .catch(error => {
 
@@ -56,7 +56,7 @@ const Login = () => {
                             <button type="submit"
                                 className="w-full bg-black text-white my-2 p-4 rounded-2xl md:text-2xl xs:text-xl focus:outline-none">Log In</button>
                         </form>
-                        <Link to="/vsp/reset" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
+                        <Link to="/diamondgroupamd/reset" id="forget-password" class="font-xl flex justify-center w-full my-5 text-gray-500">
                             ¿Olvidaste tu contraseña?
                         </Link>
                     </div>

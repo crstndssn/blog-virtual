@@ -37,6 +37,8 @@ const CreatePost = () => {
         }
         getPosts()
 
+
+
     }, [])
 
     const idContainer = () => {
@@ -51,8 +53,8 @@ const CreatePost = () => {
                 setUser(true)
                 setAdmin(false)
             }
-            
         })
+
     }
 
     idContainer()
@@ -82,9 +84,8 @@ const CreatePost = () => {
         try {
             await store.collection('posts').add(post)
             const { docs } = await store.collection('posts')
-            .orderBy('date', 'desc')
-            .where('autor', '==', 'tesoreriadiamond@rousecompany.com.co').get()
-        
+                .orderBy('date', 'desc')
+                .where('autor', '==', 'tesoreriadiamond@rousecompany.com.co').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
             console.log('post añadido')
@@ -104,9 +105,8 @@ const CreatePost = () => {
         try {
             await store.collection('posts').doc(id).delete()
             const { docs } = await store.collection('posts')
-            .orderBy('date', 'desc')
-            .where('autor', '==', 'tesoreriadiamond@rousecompany.com.co').get()
-            
+                .orderBy('date', 'desc')
+                .where('autor', '==', 'tesoreriadiamond@rousecompany.com.co').get()
             const nuevoArray = docs.map(item => ({ id: item.id, ...item.data() }))
             setPostUser(nuevoArray)
         } catch (e) {
@@ -174,7 +174,7 @@ const CreatePost = () => {
 
 
         // setFile(e.target.files[0]);
-        
+
 
         let file = e.target.files[0];
         let bucketName = 'posts'
@@ -238,7 +238,7 @@ const CreatePost = () => {
                                 />
                                 <div className="w-full flex flex-col p-4">
                                     <input
-                                        onChange={(e) => { uploadFile(e.target.value) }}
+                                        onChange={(e) => { uploadFile(e) }}
                                         name="upload-image"
                                         className="file focus:outline-none"
                                         type="file" />

@@ -11,6 +11,7 @@ import blindcorp from './views/blindcorp/index.js'
 import logisticored from './views/logisticored/index.js'
 import redlogistico from './views/redlogistico/index.js'
 import fernandoRodriguez from './views/fernando/index.js'
+import diamondGroup from './views/diamondGroup/index.js'
 
 import Admin from './views/Admin.js'
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/grupologisticored" component={logisticored} />
         <Route path="/redgrupologistico" component={redlogistico} />
         <Route path="/fernando-rodriguez" component={fernandoRodriguez} />
+        <Route path="/diamondgroupamd" component={diamondGroup} />
 
         <Route path="/test" component={test}/>
 
